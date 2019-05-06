@@ -56,6 +56,7 @@ console.log(command);
 var search = process.argv[3];
 console.log(search);
 console.log(process.argv)
+
 if (command === "concert-this") {
 
     var axios = require('axios')
@@ -86,45 +87,62 @@ console.log(JSON.stringify,null,2);
             }).catch(function(err){console.log(err)})
 
             }
-                  
-                
-  
             
-            // console.log(events);
-            // console.log(events.data);
-
-            // }).catch(function(err){console.log(err)})
             
+            
+            
+            /////////////////// OMDB SECTION
     
-       
+            var command = process.argv[2];
+            console.log(command);
+            var search = process.argv[3];
+            console.log(search);
+    
+            if (command === "movies-this") {
+
+                var axios = require("axios");
+
+                axios.get("http://www.omdbapi.com/?t=remember+the+titans&y=&plot=short&apikey=trilogy")
+                .then(function(response) {
+                console.log(" Title of movie is : " + response.data.Title);
+                console.log(" Year : " + response.data.Year);
+                console.log(" The movie's rating is : " + response.data.imdbRating);
+                console.log(" The Plot is based on : " + response.data.Plot);
+                console.log(" Actors: " + resonse.data.Actors);
+                console.log(" RottenTomatoes" + response.data.tomatoRating);
+            }
+                )}
+        
+                // console.log("Mr.Nobody");
             
-        // console.log("name of concert");
-        // console.log(events[0].search.artistName);
-        // console.log(events[0].search.dates);
+       
+    
+
+            // console.log(err);
+            // console.log("No Results founds.");
+            // console.log("movies database");
+// ))
+//         });
+    
+                
+        
+            
+       
         
     
 
-    // if (command === "concert-this") {
-//         console.log("name of concert");
-// //         // If axios is successful...
-//         console.log(events[0].artistName);
-//         console.log(events[0].dates);
-//     }
-// })
-//  }
+   
     
     
-//     }  
-// })
 
     
 
+        
+// if (command === "movies-this") {
+//     console.log("movies database");
 
-// // if (command === "movies-this") {
-// //     console.log("movies database");
 
-
-// // }
-// // if (command === "do-what-it-says") {
-// //     console.log("simon says"); 
+// }
+// if (command === "do-what-it-says") {
+//     console.log("simon says"); 
 //     }
