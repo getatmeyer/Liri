@@ -6,32 +6,67 @@ console.log(keys);
 // READ FILE, random.txt /////////////////////
 var fs = require("fs")
 // The code will store the contents of the reading inside data
-fs.readFile("random.txt", "utf8", function(error, data) {
+// fs.readFile("random.txt", "utf8", function(error, data) {
 
-    if (error) {
-        return console.log(error);
-    }
-    var dataArr = data.split(",");
-    console.log(dataArr);
+//     if (error) {
+//         return console.log(error);
+//     }
+//     var dataArr = data.split(",");
+//     console.log(dataArr);
+// });
+
+    var keys = require("./keys.js");
+    var Spotify = require('node-spotify-api');
+
+    var spotify = new Spotify({
+        id: "39b1926499b54d84aef4081afb53e5b1",
+        secret: "2817b4a1ea7a4412ad4e19baa8908341"
+
 });
 
+
+
+     
 /////////// SPOTIFY SECTION
 var command = process.argv[2];
-console.log(command);
+// console.log(command);
 var search = process.argv[3];
-console.log(search);
+// console.log(search);
 
-var keys = require("./keys.js");
-var Spotify = require('node-spotify-api');
+function switchCase () {
 
-var spotify = new Spotify({
-  id: "39b1926499b54d84aef4081afb53e5b1",
-  secret: "2817b4a1ea7a4412ad4e19baa8908341"
+      switch (command) {
+                        case "spotify-this-song":
+                            spotifySong(search)
+                            break;
 
-});
+                        case "concert-this":
+                            concertThis(search)
+                            break;
+
+                        case "movies-this":
+                            movieThis(search)
+                            break;
+
+                        case "do-what-it-says":
+                            doThis(search)
+                            break;
+      }
+    };
+
+// var keys = require("./keys.js");
+// var Spotify = require('node-spotify-api');
+
+// var spotify = new Spotify({
+//   id: "39b1926499b54d84aef4081afb53e5b1",
+//   secret: "2817b4a1ea7a4412ad4e19baa8908341"
+
+// });
+
 //function definition wrap all code below
 
 // function spotifySong(value) {
+ function spotifySong(search) {
 
  if (command === "spotify-this-song" ) {
     console.log("browsing song");
@@ -45,24 +80,29 @@ var spotify = new Spotify({
             console.log(data[i]);
         }
         //album name
-        console.log(data.tracks.items[0].album.name);
+        console.log("Album: " + data.tracks.items[0].album.name);
         //preview_url
-        console.log(data.tracks.items[0].preview_url);
+        console.log("Preview: " + data.tracks.items[0].preview_url);
         //If you want _all_ the artists, you;ll need to loop through the artists array
-        console.log(data.tracks.items[0].artists[0].name);
+        console.log("Artist: " + data.tracks.items[0].artists[0].name);
+        //song
+        console.log("Song: " + data.tracks.items[0].name);
+        
         // console.log(JSON.stringify(data,null,2)); 
     
         });
     }
- 
+}
+
 ///////////// BANDS IN TOWN SECTION
 var command = process.argv[2];
-console.log(command);
+// console.log(command);
 var search = process.argv[3];
-console.log(search);
-console.log(process.argv[0])
+// console.log(search);
+// console.log(process.argv[0])
 
 // function concertThis(value) {
+function concertThis () {
 
 if (command === "concert-this") {
 
@@ -93,13 +133,20 @@ console.log("______________________________________");
             }).catch(function(err){console.log(err)})
 
             }
-
+        }
             /////////////////// OMDB SECTION
     
             var command = process.argv[2];
-            console.log(command);
+            // console.log(command);
             var search = process.argv[3];
-            console.log(search);
+            // console.log(search +"<--search");
+
+            function movieThis(search) {
+                
+            
+            if(search == undefined) {
+                search = "Mr. Nobody";
+             }
 
             // function movieThis(value) {
             if (command === "movies-this") {
@@ -114,9 +161,7 @@ console.log("______________________________________");
 
                 .then(function(response) {
                     // console.log(response);
-                    if(search != " ") {
-                       search = "Mr. Nobody";
-                    }
+
                     
                 console.log("______________________________________");
                 console.log("______________________________________");
@@ -134,37 +179,35 @@ console.log("______________________________________");
             });
             
         }
-        // else  { if (command === " ") {
-        //     console.log("Mr.Nobody");
-        // }   
-        
+            }
+        // switchCase();
+
          ////////////// DO-WHAT-IF-SAYS
 
-            // var command = process.argv[2];
+            var command = process.argv[2];
             // console.log(command);
-            // var search = process.argv[3];
+            var search = process.argv[3];
             // console.log(search);
+            function doThis() {
 
+                if (command === "do-what-it-says") {
 
-            //     if (command === "do-what-it-says") {
-            //         console.log("do-what-it-says"); 
+                    fs.readFile("random.txt", "utf8", function(error, data) {
 
-            //         switch (command) {
-            //             case "spotify-this-song":
-            //             spotifySong(value)
-            //             break;
-            //             case "concert-this":
-            //             concertThis(value)
-            //             break;
-            //             case "movies-this":
-            //             movieThis(value)
-            //             break;
-            //             case "do-what-it-says":
-            //             doThis(value)
-            //             break;
+                        if (error) {
+                            return console.log(error);
+                        }
+                        var dataArr = data.split(",");
+                        console.log(dataArr);
+                    });
+                }
+                }
 
-            //         };
-            //     }
+                switchCase();
+                //     console.log("do-what-it-says"); 
+                   
+                    // };
+                // }
                 
             
                     // function command (logText) {
