@@ -69,7 +69,7 @@ function switchCase () {
  function spotifySong(search) {
 
  if (command === "spotify-this-song" ) {
-    console.log("browsing song");
+    console.log("browsing songs");
  
     spotify.search({
          type: 'track', query: search }, function(err, data) {
